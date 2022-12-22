@@ -1,4 +1,8 @@
-﻿namespace Catalog.API.Persistence
+﻿using CatalogService.API.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+
+namespace Catalog.API.Persistence
 {
     public class ApplicationContext : DbContext
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CatalogService.API.Persistence
 {
-    public interface ICatalogRepository
+    public interface IProductRepository
     {
         IEnumerable<Product> GetAll();
         Product GetItemById(int id);
@@ -12,5 +12,6 @@ namespace CatalogService.API.Persistence
         void Update(Product item);
         void Delete(int id);
         void Delete(Product item);
+        void Save();
     }
 }
