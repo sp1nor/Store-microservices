@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreWebApp", "StoreWebApp\StoreWebApp.csproj", "{DF35CBE6-30B0-4CDA-99F1-F4FE772D5F8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{AE04226A-1CB0-46FB-8C24-330CE48CA401}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{601281BC-5E02-4490-9234-24B13BF2AC3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{83620FE6-3371-4E96-BCBD-62A803CA2B0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FD414515-A379-4D05-95A1-B711A738AE57}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{F1D722D6-97C5-4C4A-9461-A4E31361D9FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{1090DA3E-FD48-4511-99EC-19BA4F454858}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{740501A1-706D-4CA4-A7F8-2969DA64AFC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF35CBE6-30B0-4CDA-99F1-F4FE772D5F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF35CBE6-30B0-4CDA-99F1-F4FE772D5F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF35CBE6-30B0-4CDA-99F1-F4FE772D5F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF35CBE6-30B0-4CDA-99F1-F4FE772D5F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF35CBE6-30B0-4CDA-99F1-F4FE772D5F8C} = {83620FE6-3371-4E96-BCBD-62A803CA2B0E}
+		{83620FE6-3371-4E96-BCBD-62A803CA2B0E} = {601281BC-5E02-4490-9234-24B13BF2AC3D}
+		{FD414515-A379-4D05-95A1-B711A738AE57} = {601281BC-5E02-4490-9234-24B13BF2AC3D}
+		{F1D722D6-97C5-4C4A-9461-A4E31361D9FF} = {601281BC-5E02-4490-9234-24B13BF2AC3D}
+		{1090DA3E-FD48-4511-99EC-19BA4F454858} = {FD414515-A379-4D05-95A1-B711A738AE57}
+		{740501A1-706D-4CA4-A7F8-2969DA64AFC2} = {FD414515-A379-4D05-95A1-B711A738AE57}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {19F535BF-8129-4AFD-8DA9-23FE276D777A}
+	EndGlobalSection
+EndGlobal
