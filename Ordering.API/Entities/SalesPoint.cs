@@ -6,6 +6,6 @@ namespace Ordering.API.Entities
     {
         public string Name { get; set; }
 
-        public List<int> SalesIds { get; set; }
+        public List<ProvidedProduct> ProvidedProducts { get; set; }
     }
 }
