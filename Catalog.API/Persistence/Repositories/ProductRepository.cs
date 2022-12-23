@@ -1,5 +1,6 @@
 ﻿using CatalogService.API.Entities;
 using CatalogService.API.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,12 +23,16 @@ namespace Catalog.API.Persistence
 
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+
+            _context.Products.Remove(product);
+            Save();
         }
 
         public void Delete(Product item)
         {
-            throw new System.NotImplementedException();
+            _context.Products.Remove(item);
+            Save();
         }
 
         public IEnumerable<Product> GetAll()
@@ -37,7 +42,9 @@ namespace Catalog.API.Persistence
 
         public Product GetItemById(int id)
         {
-            throw new System.NotImplementedException();
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+
+            return product;
         }
 
         public void Save()
@@ -47,7 +54,9 @@ namespace Catalog.API.Persistence
 
         public void Update(Product item)
         {
-            throw new System.NotImplementedException();
+            _context.Entry(item).Reload();
+            //= EntityState.Modified;
+            Save();
         }
     }
 }
