@@ -7,6 +7,7 @@ namespace Ordering.API.Persistence
     public class ApplicationContext : DbContext
     {
         public DbSet<Buyer> Buyers { get; set; }
+        public DbSet<Sale> Sales { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)

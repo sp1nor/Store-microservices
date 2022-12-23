@@ -18,7 +18,7 @@ namespace Ordering.API.Controllers
         }
 
         /// <summary>
-        /// Gets all products
+        /// Gets all buyer
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -29,7 +29,7 @@ namespace Ordering.API.Controllers
         }
 
         /// <summary>
-        /// Creates a New Product.
+        /// Creates a New buyer.
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
@@ -42,7 +42,7 @@ namespace Ordering.API.Controllers
         }
 
         /// <summary>
-        /// Delete product by id
+        /// Delete buyer by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace Ordering.API.Controllers
         }
 
         /// <summary>
-        /// Update product
+        /// Update buyer
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>

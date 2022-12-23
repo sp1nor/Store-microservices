@@ -25,6 +25,7 @@ namespace Ordering.API
         {
             services.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("InMem"));
             services.AddScoped<IGenericRepository<Buyer>, EFGenericRepository<Buyer>>();
+            services.AddScoped<IGenericRepository<Sale>, EFGenericRepository<Sale>>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
