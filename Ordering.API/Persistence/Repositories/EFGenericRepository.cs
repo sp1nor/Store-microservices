@@ -19,12 +19,14 @@ namespace Ordering.API.Persistence.Repositories
         public void Create(T item)
         {
             _dbSet.Add(item);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var item = _dbSet.FirstOrDefault(x => x.Id == id);
             _dbSet.Remove(item);
+            _context.SaveChanges();
         }
 
         public IEnumerable<T> GetAll()
@@ -35,6 +37,7 @@ namespace Ordering.API.Persistence.Repositories
         public void Update(T item)
         {
             _dbSet.Update(item);
+            _context.SaveChanges();
         }
     }
 }

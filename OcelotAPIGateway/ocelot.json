@@ -28,7 +28,7 @@
 
 
     {
-      "DownstreamPathTemplate": "/api/ordering",
+      "DownstreamPathTemplate": "/api/buyer",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -36,11 +36,11 @@
           "Port": 44359
         }
       ],
-      "UpstreamPathTemplate": "/gateway/ordering",
+      "UpstreamPathTemplate": "/gateway/buyer",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/ordering/{id}",
+      "DownstreamPathTemplate": "/api/buyer/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -48,7 +48,7 @@
           "Port": 44359
         }
       ],
-      "UpstreamPathTemplate": "/gateway/ordering/{id}",
+      "UpstreamPathTemplate": "/gateway/buyer/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ]
     }
   ]
