@@ -1,34 +1,40 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Ordering.API.Entities;
 
 namespace Ordering.API.Persistence.Repositories
 {
-    public class EFGenericRepository<T> : IGenericRepository<T> where T : class
+    public class EFGenericRepository<T> : IGenericRepository<T> where T : Entity
     {
         ApplicationContext _context;
+        public DbSet<T> _dbSet;
 
         public EFGenericRepository(ApplicationContext context)
         {
             _context = context;
+            _dbSet = context.Set<T>();
         }
 
         public void Create(T item)
         {
-            throw new System.NotImplementedException();
+            _dbSet.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var item = _dbSet.FirstOrDefault(x => x.Id == id);
+            _dbSet.Remove(item);
         }
 
         public IEnumerable<T> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _dbSet.ToList();
         }
 
         public void Update(T item)
         {
-            throw new System.NotImplementedException();
+            _dbSet.Update(item);
         }
     }
 }
