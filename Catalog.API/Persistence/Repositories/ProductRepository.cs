@@ -54,8 +54,9 @@ namespace Catalog.API.Persistence
 
         public void Update(Product item)
         {
-            _context.Entry(item).Reload();
-            //= EntityState.Modified;
+            var product = _context.Products.FirstOrDefault(p => p.Id == item.Id);
+            product.Name = item.Name;
+            product.Price = item.Price;
             Save();
         }
     }
