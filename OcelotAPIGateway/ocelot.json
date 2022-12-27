@@ -8,7 +8,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "ordering.api",
-          "Port": 8000
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/buyer",
@@ -20,7 +20,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "ordering.api",
-          "Port": 8000
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/buyer/{id}",
@@ -34,7 +34,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "ordering.api",
-          "Port": 8000
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/sale",
@@ -46,7 +46,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "ordering.api",
-          "Port": 8000
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/sale/{id}",
@@ -60,7 +60,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "catalog.api",
-          "Port": 8001
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/product",
@@ -72,7 +72,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "catalog.api",
-          "Port": 8001
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/product/{id}",
