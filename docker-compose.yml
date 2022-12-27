@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: Ordering.API/Dockerfile
+
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: Catalog.API/Dockerfile
+
+  ocelotapigateway:
+    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    build:
+      context: .
+      dockerfile: OcelotAPIGateway/Dockerfile
+

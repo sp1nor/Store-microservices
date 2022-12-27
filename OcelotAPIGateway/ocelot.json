@@ -1,39 +1,14 @@
 ﻿{
 
   "Routes": [
-    {
-      "DownstreamPathTemplate": "/api/product",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44390
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/product",
-      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/product/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44390
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/product/{id}",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
-    },
-
-
+    //Order API
     {
       "DownstreamPathTemplate": "/api/buyer",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44359
+          "Host": "ordering.api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/buyer",
@@ -41,11 +16,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/buyer/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44359
+          "Host": "ordering.api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/buyer/{id}",
@@ -55,11 +30,11 @@
 
     {
       "DownstreamPathTemplate": "/api/sale",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44359
+          "Host": "ordering.api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/sale",
@@ -67,16 +42,47 @@
     },
     {
       "DownstreamPathTemplate": "/api/sale/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44359
+          "Host": "ordering.api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/sale/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
+
+    //Catalog API
+    {
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/product",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/product/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/product/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
     }
-  ]
+
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5010"
+  }
 
 }
