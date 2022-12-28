@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Ordering.API.Entities;
+using Sale.API.Entities;
 using System.Linq;
 
-namespace Ordering.API.Persistence
+namespace Sale.API.Persistence
 {
     public class ApplicationContext : DbContext
     {

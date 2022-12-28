@@ -1,4 +1,4 @@
-﻿namespace Ordering.API.Entities
+﻿namespace Sale.API.Entities
 {
     public class SaleData : Entity
     {

@@ -1,4 +1,4 @@
-﻿namespace Ordering.API.Controllers
+﻿namespace Sale.API.Controllers
 {
     public class SalesPointController
     {

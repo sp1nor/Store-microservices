@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Ordering.API.Entities
+namespace Sale.API.Entities
 {
     public class Sale : Entity
     {

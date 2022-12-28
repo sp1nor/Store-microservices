@@ -5,11 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Ordering.API.Entities;
-using Ordering.API.Persistence;
-using Ordering.API.Persistence.Repositories;
+using Sale.API.Entities;
+using Sale.API.Persistence;
+using Sale.API.Persistence.Repositories;
 
-namespace Ordering.API
+namespace Sale.API
 {
     public class Startup
     {
