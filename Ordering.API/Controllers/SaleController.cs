@@ -10,42 +10,42 @@ namespace Sale.API.Controllers
     [Route("api/[controller]")]
     public class SaleController : ControllerBase
     {
-        private readonly IGenericRepository<Sale> _repository;
+        //private readonly IGenericRepository<Sale> _repository;
 
-        public SaleController(IGenericRepository<Sale> repository)
-        {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
+        //public SaleController(IGenericRepository<Sale> repository)
+        //{
+        //    _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        //}
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var sale = _repository.GetAll();
-            return Ok(sale);
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll()
+        //{
+        //    var sale = _repository.GetAll();
+        //    return Ok(sale);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Sale sale)
-        {
-            _repository.Create(sale);
+        //[HttpPost]
+        //public async Task<IActionResult> Create(Sale sale)
+        //{
+        //    _repository.Create(sale);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            _repository.Delete(id);
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    _repository.Delete(id);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        [HttpPut]
-        public async Task<IActionResult> Update(Sale sale)
-        {
-            _repository.Update(sale);
+        //[HttpPut]
+        //public async Task<IActionResult> Update(Sale sale)
+        //{
+        //    _repository.Update(sale);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }

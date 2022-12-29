@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Shared.Models;
+using System.Collections.Generic;
 
 namespace Sale.API.Entities
 {
@@ -7,10 +8,5 @@ namespace Sale.API.Entities
         public string Name { get; set; }
 
         public List<SalesId> SalesIds { get; set; }
-
-        //public Buyer()
-        //{
-        //    SalesIds = new List<int>();
-        //}
     }
 }

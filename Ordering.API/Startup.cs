@@ -1,3 +1,5 @@
+using GreenPipes;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,9 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Ordering.API.Consumers;
 using Sale.API.Entities;
 using Sale.API.Persistence;
 using Sale.API.Persistence.Repositories;
+using System;
 
 namespace Sale.API
 {
@@ -25,7 +29,45 @@ namespace Sale.API
         {
             services.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("InMem"));
             services.AddScoped<IGenericRepository<Buyer>, EFGenericRepository<Buyer>>();
-            services.AddScoped<IGenericRepository<Sale>, EFGenericRepository<Sale>>();
+            //services.AddScoped<IGenericRepository<Sale>, EFGenericRepository<Sale>>();
+
+            //services.AddMassTransit(x =>
+            //{
+            //    x.AddConsumer<SaleConsumer>();
+            //    x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+            //    {
+            //        cfg.UseHealthCheck(provider);
+            //        cfg.Host(new Uri("rabbitmq://localhost"), h =>
+            //        {
+            //            h.Username("guest");
+            //            h.Password("guest");
+            //        });
+            //        cfg.ReceiveEndpoint("saleQueue", ep =>
+            //        {
+            //            ep.PrefetchCount = 16;
+            //            ep.UseMessageRetry(r => r.Interval(2, 100));
+            //            ep.ConfigureConsumer<SaleConsumer>(provider);
+            //        });
+            //    }));
+            //});
+            //services.AddMassTransitHostedService();
+
+            services.AddMassTransit(config => {
+
+                config.AddConsumer<SaleConsumer>();
+
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host("amqp://guest:guest@localhost:5672");
+                    cfg.UseHealthCheck(ctx);
+
+                    cfg.ReceiveEndpoint("salequeue", c => {
+                        c.ConfigureConsumer<SaleConsumer>(ctx);
+                    });
+                });
+            });
+            services.AddMassTransitHostedService();
+
+            services.AddScoped<SaleConsumer>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

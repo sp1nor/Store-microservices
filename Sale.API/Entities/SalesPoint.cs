@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Shared.Models;
+using System.Collections.Generic;
 
 namespace Sale.API.Entities
 {
