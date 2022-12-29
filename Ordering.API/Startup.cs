@@ -31,43 +31,26 @@ namespace Sale.API
             services.AddScoped<IGenericRepository<Buyer>, EFGenericRepository<Buyer>>();
             //services.AddScoped<IGenericRepository<Sale>, EFGenericRepository<Sale>>();
 
-            //services.AddMassTransit(x =>
-            //{
-            //    x.AddConsumer<SaleConsumer>();
-            //    x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
-            //    {
-            //        cfg.UseHealthCheck(provider);
-            //        cfg.Host(new Uri("rabbitmq://localhost"), h =>
-            //        {
-            //            h.Username("guest");
-            //            h.Password("guest");
-            //        });
-            //        cfg.ReceiveEndpoint("saleQueue", ep =>
-            //        {
-            //            ep.PrefetchCount = 16;
-            //            ep.UseMessageRetry(r => r.Interval(2, 100));
-            //            ep.ConfigureConsumer<SaleConsumer>(provider);
-            //        });
-            //    }));
-            //});
-            //services.AddMassTransitHostedService();
-
-            services.AddMassTransit(config => {
-
-                config.AddConsumer<SaleConsumer>();
-
-                config.UsingRabbitMq((ctx, cfg) => {
-                    cfg.Host("amqp://guest:guest@localhost:5672");
-                    cfg.UseHealthCheck(ctx);
-
-                    cfg.ReceiveEndpoint("salequeue", c => {
-                        c.ConfigureConsumer<SaleConsumer>(ctx);
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<SaleConsumer>();
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+                {
+                    cfg.UseHealthCheck(provider);
+                    cfg.Host(new Uri("rabbitmq://localhost"), h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
                     });
-                });
+                    cfg.ReceiveEndpoint("saleQueue", ep =>
+                    {
+                        ep.PrefetchCount = 16;
+                        ep.UseMessageRetry(r => r.Interval(2, 100));
+                        ep.ConfigureConsumer<SaleConsumer>(provider);
+                    });
+                }));
             });
             services.AddMassTransitHostedService();
-
-            services.AddScoped<SaleConsumer>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

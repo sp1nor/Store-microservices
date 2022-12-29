@@ -12,6 +12,8 @@ services:
   ordering.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - rabbitmq
     ports:
       - "8000:80"
 
