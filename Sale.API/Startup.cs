@@ -21,17 +21,12 @@ namespace Sale.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMassTransit(x =>
-            {
-                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
-                {
-                    config.UseHealthCheck(provider);
-                    config.Host(new Uri("rabbitmq://localhost"), h =>
-                    {
-                        h.Username("guest");
-                        h.Password("guest");
-                    });
-                }));
+            // MassTransit-RabbitMQ Configuration
+            services.AddMassTransit(config => {
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                    cfg.UseHealthCheck(ctx);
+                });
             });
             services.AddMassTransitHostedService();
 

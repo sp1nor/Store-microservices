@@ -9,25 +9,19 @@ namespace Sale.API.Controllers
     [Route("api/[controller]")]
     public class SaleController : ControllerBase
     {
-        private readonly IBus _bus;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public SaleController(IBus bus)
+        public SaleController(IPublishEndpoint publishEndpoint)
         {
-            _bus = bus;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateSale(Shared.Models.Sale sale)
         {
-            if (sale != null)
-            {
-                sale.Date = DateTime.Now;
-                Uri uri = new Uri("rabbitmq://localhost/saleQueue");
-                var endPoint = await _bus.GetSendEndpoint(uri);
-                await endPoint.Send(sale);
-                return Ok();
-            }
-            return BadRequest();
+            await _publishEndpoint.Publish<Shared.Models.Sale>(sale);
+
+            return Accepted();
         }
     }
 }

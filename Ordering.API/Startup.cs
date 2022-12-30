@@ -29,26 +29,21 @@ namespace Sale.API
         {
             services.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("InMem"));
             services.AddScoped<IGenericRepository<Buyer>, EFGenericRepository<Buyer>>();
-            //services.AddScoped<IGenericRepository<Sale>, EFGenericRepository<Sale>>();
 
-            services.AddMassTransit(x =>
-            {
-                x.AddConsumer<SaleConsumer>();
-                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
-                {
-                    cfg.UseHealthCheck(provider);
-                    cfg.Host(new Uri("rabbitmq://localhost"), h =>
-                    {
-                        h.Username("guest");
-                        h.Password("guest");
+            // MassTransit-RabbitMQ Configuration
+            services.AddMassTransit(config => {
+
+                config.AddConsumer<SaleConsumer>();
+
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                    cfg.UseHealthCheck(ctx);
+
+                    //cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => {
+                    cfg.ReceiveEndpoint("saleQueue", c => {
+                        c.ConfigureConsumer<SaleConsumer>(ctx);
                     });
-                    cfg.ReceiveEndpoint("saleQueue", ep =>
-                    {
-                        ep.PrefetchCount = 16;
-                        ep.UseMessageRetry(r => r.Interval(2, 100));
-                        ep.ConfigureConsumer<SaleConsumer>(provider);
-                    });
-                }));
+                });
             });
             services.AddMassTransitHostedService();
 
