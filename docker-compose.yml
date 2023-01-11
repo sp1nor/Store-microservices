@@ -29,6 +29,11 @@ services:
       context: .
       dockerfile: OcelotAPIGateway/Dockerfile
 
+  elasticsearch:
+    image: elasticsearch:7.9.2
 
+  kibana:
+    image: kibana:7.9.2
 
-
+volumes:
+  elasticsearch-data:

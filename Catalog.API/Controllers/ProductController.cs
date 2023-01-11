@@ -1,6 +1,7 @@
 ﻿using CatalogService.API.Entities;
 using CatalogService.API.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
@@ -11,10 +12,13 @@ namespace Catalog.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _repository;
+        private readonly ILogger<ProductController> _logger;
 
-        public ProductController(IProductRepository repository)
+        public ProductController(IProductRepository repository,
+            ILogger<ProductController> logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -25,6 +29,7 @@ namespace Catalog.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var products = _repository.GetAll();
+            _logger.LogInformation("Get product form repository successfully.", products);
             return Ok(products);
         }
 
