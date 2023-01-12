@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Shared.Models;
 
 namespace Sale.API.Controllers
 {
@@ -17,9 +18,9 @@ namespace Sale.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSale(Shared.Models.Sale sale)
+        public async Task<IActionResult> CreateSale(SaleCheckoutEvent sale)
         {
-            await _publishEndpoint.Publish<Shared.Models.Sale>(sale);
+            await _publishEndpoint.Publish<SaleCheckoutEvent>(sale);
 
             return Accepted();
         }
