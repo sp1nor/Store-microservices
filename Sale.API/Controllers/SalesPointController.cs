@@ -21,13 +21,6 @@ namespace Sale.API.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> BuyProduct()
-        {
-
-            return Accepted();
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

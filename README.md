@@ -2,4 +2,5 @@
 
 Microservices with ocelot gateway,
 RabbitMQ and MassTransient
+Rich domain
 repository pattern, unit of work

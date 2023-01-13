@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Shared.Models;
+using Sale.API.Persistence.Repositories;
+using Microsoft.Extensions.Logging;
+using Sale.API.Features;
 
 namespace Sale.API.Controllers
 {
@@ -10,17 +13,45 @@ namespace Sale.API.Controllers
     [Route("api/[controller]")]
     public class SaleController : ControllerBase
     {
+        private readonly ISalesPointRepository _repositorySalesPoint;
+        private readonly ILogger<SalesPointController> _logger;
+        private readonly ISaleFeature _saleFeature;
         private readonly IPublishEndpoint _publishEndpoint;
 
-        public SaleController(IPublishEndpoint publishEndpoint)
+        public SaleController(
+            ISaleFeature saleFeature,
+            IPublishEndpoint publishEndpoint,
+            ISalesPointRepository repositorySalesPoint,
+            ILogger<SalesPointController> logger
+            )
         {
+            _saleFeature = saleFeature;
             _publishEndpoint = publishEndpoint;
+            _repositorySalesPoint = repositorySalesPoint;
+            _logger = logger;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSale(SaleCheckoutEvent sale)
+        public async Task<IActionResult> CreateSale(Shared.Models.Sale sale)
         {
-            await _publishEndpoint.Publish<SaleCheckoutEvent>(sale);
+            var salesPoint = _repositorySalesPoint.GetItemById(sale.Id);
+
+            var isCorrectProductQuantity = SaleFeature.isProductQuantityLessThenHaveSalePoint(sale, salesPoint);
+
+            if (isCorrectProductQuantity)
+            {
+                _logger.LogInformation("Correct product quantity in sale.", sale);
+            }
+            else
+            {
+                _logger.LogInformation("Not correct product quantity in sale.", sale);
+
+                return BadRequest();
+            }
+
+            var saleWithTotalAmount = await _saleFeature.CalculateTotalAmount(sale);
+
+            await _publishEndpoint.Publish<Shared.Models.Sale>(sale);
 
             return Accepted();
         }
