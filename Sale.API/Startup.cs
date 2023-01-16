@@ -29,7 +29,7 @@ namespace Sale.API
             services.AddScoped<ISalesPointRepository, SalesPointRepository>();
 
             services.AddHttpClient<ISaleFeature, SaleFeature>(c => 
-                c.BaseAddress = new Uri(Configuration["ApiSettingsLGatewayAddress"]));
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
 
             // MassTransit-RabbitMQ Configuration
             services.AddMassTransit(config => {
