@@ -17,9 +17,23 @@ services:
       context: .
       dockerfile: Catalog.API/Dockerfile
 
+  sale.api:
+    image: ${DOCKER_REGISTRY-}saleapi
+    build:
+      context: .
+      dockerfile: Sale.API/Dockerfile
+
   ocelotapigateway:
     image: ${DOCKER_REGISTRY-}ocelotapigateway
     build:
       context: .
       dockerfile: OcelotAPIGateway/Dockerfile
 
+  elasticsearch:
+    image: elasticsearch:7.9.2
+
+  kibana:
+    image: kibana:7.9.2
+
+volumes:
+  elasticsearch-data:

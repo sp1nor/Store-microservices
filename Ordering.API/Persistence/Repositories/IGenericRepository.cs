@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ordering.API.Persistence.Repositories
+namespace Sale.API.Persistence.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {

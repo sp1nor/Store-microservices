@@ -34,6 +34,11 @@ namespace Catalog.API.Persistence
                 {
                     Name = "mio",
                     Price = 21222.23M
+                },
+                new Product()
+                {
+                    Name = "nokia",
+                    Price = 1244.23M
                 }
             );
 

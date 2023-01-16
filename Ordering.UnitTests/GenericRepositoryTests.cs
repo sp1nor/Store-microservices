@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace Ordering.UnitTests
+namespace Sale.UnitTests
 {
     public class GenericRepositoryTests
     {

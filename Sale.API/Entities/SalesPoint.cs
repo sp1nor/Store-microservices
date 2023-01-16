@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Shared.Models;
+using System.Collections.Generic;
 
-namespace Ordering.API.Entities
+namespace Sale.API.Entities
 {
     public class SalesPoint : Entity
     {

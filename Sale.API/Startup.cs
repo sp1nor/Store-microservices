@@ -1,4 +1,3 @@
-using GreenPipes;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,8 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Ordering.API.Consumers;
-using Sale.API.Entities;
+using Sale.API.Features;
 using Sale.API.Persistence;
 using Sale.API.Persistence.Repositories;
 using System;
@@ -28,21 +26,16 @@ namespace Sale.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("InMem"));
-            services.AddScoped<IGenericRepository<Buyer>, EFGenericRepository<Buyer>>();
+            services.AddScoped<ISalesPointRepository, SalesPointRepository>();
+
+            services.AddHttpClient<ISaleFeature, SaleFeature>(c => 
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
 
             // MassTransit-RabbitMQ Configuration
             services.AddMassTransit(config => {
-
-                config.AddConsumer<SaleConsumer>();
-
                 config.UsingRabbitMq((ctx, cfg) => {
                     cfg.Host(Configuration["EventBusSettings:HostAddress"]);
                     cfg.UseHealthCheck(ctx);
-
-                    //cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => {
-                    cfg.ReceiveEndpoint("saleQueue", c => {
-                        c.ConfigureConsumer<SaleConsumer>(ctx);
-                    });
                 });
             });
             services.AddMassTransitHostedService();
@@ -50,7 +43,7 @@ namespace Sale.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordering.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sale.API", Version = "v1" });
             });
         }
 
@@ -61,10 +54,10 @@ namespace Sale.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ordering.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sale.API v1"));
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 

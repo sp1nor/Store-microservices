@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using Shared.Models;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Ordering.API.Entities;
 
-namespace Ordering.API.Persistence.Repositories
+namespace Sale.API.Persistence.Repositories
 {
     public class EFGenericRepository<T> : IGenericRepository<T> where T : Entity
     {

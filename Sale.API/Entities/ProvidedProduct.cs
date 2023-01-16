@@ -1,4 +1,6 @@
-﻿namespace Ordering.API.Entities
+﻿using Shared.Models;
+
+namespace Sale.API.Entities
 {
     public class ProvidedProduct : Entity
     {

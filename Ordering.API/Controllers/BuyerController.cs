@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Ordering.API.Entities;
-using Ordering.API.Persistence.Repositories;
+using Sale.API.Entities;
+using Sale.API.Persistence.Repositories;
 using System;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Controllers
+namespace Sale.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
