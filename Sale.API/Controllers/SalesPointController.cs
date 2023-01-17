@@ -25,6 +25,7 @@ namespace Sale.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var salesPoints = _repository.GetAll();
+
             _logger.LogInformation("Get salesPoint form repository successfully.", salesPoints);
             return Ok(salesPoints);
         }

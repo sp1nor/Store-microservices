@@ -6,6 +6,7 @@ using Shared.Models;
 using Sale.API.Persistence.Repositories;
 using Microsoft.Extensions.Logging;
 using Sale.API.Features;
+using System.Linq;
 
 namespace Sale.API.Controllers
 {
@@ -32,28 +33,37 @@ namespace Sale.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSale(Shared.Models.Sale sale)
+        public async Task<IActionResult> Sale(Shared.Models.Sale sale)
         {
             var salesPoint = _repositorySalesPoint.GetItemById(sale.Id);
 
             var isCorrectProductQuantity = SaleFeature.isProductQuantityLessThenHaveSalePoint(sale, salesPoint);
 
-            if (isCorrectProductQuantity)
-            {
-                _logger.LogInformation("Correct product quantity in sale.", sale);
-            }
-            else
+            if (!isCorrectProductQuantity)
             {
                 _logger.LogInformation("Not correct product quantity in sale.", sale);
-
                 return BadRequest();
             }
 
+            _logger.LogInformation("Correct product quantity in sale.", sale);
+
             var saleWithTotalAmount = await _saleFeature.CalculateTotalAmount(sale);
+
+            UpdateProductQuantityInSalesPoint(sale, salesPoint);
 
             await _publishEndpoint.Publish<Shared.Models.Sale>(sale);
 
             return Accepted();
+        }
+
+        private void UpdateProductQuantityInSalesPoint(Shared.Models.Sale sale, Entities.SalesPoint salesPoint)
+        {
+            foreach (var providedProduct in salesPoint.ProvidedProducts)
+            {
+                var currentProduct = sale.SalesData.FirstOrDefault(d => d.ProductId == providedProduct.ProductId);
+                providedProduct.ProductQuantity -= currentProduct.ProductQuantity;
+            }
+            _repositorySalesPoint.Update(salesPoint);
         }
     }
 }
