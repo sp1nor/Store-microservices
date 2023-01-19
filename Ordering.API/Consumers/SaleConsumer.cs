@@ -13,7 +13,7 @@ namespace Ordering.API.Consumers
         private readonly IGenericRepository<Buyer> _repository;
 
         public SaleConsumer(
-            ILogger<Shared.Models.Sale> logger
+            ILogger<Shared.Models.Sale> logger,
             IGenericRepository<Buyer> repository)
         {
             _logger = logger;
@@ -23,12 +23,18 @@ namespace Ordering.API.Consumers
         public async Task Consume(ConsumeContext<Shared.Models.Sale> context)
         {
             var sale = context.Message;
+            
             // update byer
-            var currentBuyer = _repository.GetById(sale.BuyerId.Value);
-            var salesId = new SalesId() { Id = sale.Id};
-            currentBuyer.SalesIds.Add(salesId);
+            if (sale.BuyerId.Value != null)
+            {
+                var currentBuyer = _repository.GetById(sale.BuyerId.Value);
+                var salesId = new SalesId() { Id = sale.Id };
+                currentBuyer.SalesIds.Add(salesId);
 
-            _repository.Update(currentBuyer);
+                _repository.Update(currentBuyer);
+
+                _logger.LogInformation("Add sale Id to current buyer successfully");
+            }
 
             _logger.LogInformation("SaleConsumer consumed successfully");
         }

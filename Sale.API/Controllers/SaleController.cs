@@ -35,8 +35,17 @@ namespace Sale.API.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var sales = _repositorySale.GetAll();
+
+            _logger.LogInformation("Get Sales form repository successfully.", sales);
+            return Ok(sales);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Sale(Shared.Models.Sale sale)
+        public async Task<IActionResult> CreateSale(Shared.Models.Sale sale)
         {
             var salesPoint = _repositorySalesPoint.GetItemById(sale.Id);
 
@@ -54,6 +63,7 @@ namespace Sale.API.Controllers
 
             UpdateProductQuantityInSalesPoint(sale, salesPoint);
 
+            _repositorySale.Create(sale);
 
             await _publishEndpoint.Publish<Shared.Models.Sale>(sale);
 
