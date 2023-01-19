@@ -15,6 +15,7 @@ namespace Sale.API.Controllers
     public class SaleController : ControllerBase
     {
         private readonly ISalesPointRepository _repositorySalesPoint;
+        private readonly ISaleRepository _repositorySale;
         private readonly ILogger<SalesPointController> _logger;
         private readonly ISaleFeature _saleFeature;
         private readonly IPublishEndpoint _publishEndpoint;
@@ -23,12 +24,14 @@ namespace Sale.API.Controllers
             ISaleFeature saleFeature,
             IPublishEndpoint publishEndpoint,
             ISalesPointRepository repositorySalesPoint,
+            ISaleRepository repositorySale,
             ILogger<SalesPointController> logger
             )
         {
             _saleFeature = saleFeature;
             _publishEndpoint = publishEndpoint;
             _repositorySalesPoint = repositorySalesPoint;
+            _repositorySale = repositorySale;
             _logger = logger;
         }
 
@@ -50,6 +53,7 @@ namespace Sale.API.Controllers
             var saleWithTotalAmount = await _saleFeature.CalculateTotalAmount(sale);
 
             UpdateProductQuantityInSalesPoint(sale, salesPoint);
+
 
             await _publishEndpoint.Publish<Shared.Models.Sale>(sale);
 

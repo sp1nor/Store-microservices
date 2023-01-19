@@ -9,6 +9,8 @@ namespace Sale.API.Persistence
     {
         public DbSet<SalesPoint> SalesPoints { get; set; }
 
+        public DbSet<Shared.Models.Sale> Sales { get; set; }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {

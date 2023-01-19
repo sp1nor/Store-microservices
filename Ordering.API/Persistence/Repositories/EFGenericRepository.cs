@@ -39,5 +39,11 @@ namespace Sale.API.Persistence.Repositories
             _dbSet.Update(item);
             _context.SaveChanges();
         }
+
+        public T GetById(int id)
+        {
+            var item = _dbSet.FirstOrDefault(x => x.Id == id);
+            return item;
+        }
     }
 }
